@@ -1,5 +1,6 @@
 <?php
 wp_enqueue_style("erw_wheel_style", plugins_url("/assets/css/wheel.css", __DIR__));
+wp_enqueue_script("erw_wheel_script", plugins_url("/assets/js/wheel.js", __DIR__));
 
 function erw_render_wheel_template($erw_id, $erw_img_needle, $erw_img_wheel) {
 ?>

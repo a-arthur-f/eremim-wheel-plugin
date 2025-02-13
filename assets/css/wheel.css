@@ -23,5 +23,21 @@
     top: 0;
     left: 0;
     box-sizing: border-box;
+
+    transition: transform 8s ease-out;
+  }
+}
+
+@keyframes blur {
+  0% {
+    filter: blur(1px);
+  }
+
+  90% {
+    filter: blur(.5px)
+  }
+
+  100% {
+    filter: blur(0);
   }
 }
