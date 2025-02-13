@@ -1,0 +1,27 @@
+.erw-wheel {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .5);
+  z-index: 999;
+
+  .erw-wheel__needle {
+    position: absolute;
+    max-width: 48px;
+    height: auto;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+  }
+
+  .erw-wheel__wheel {
+    position: absolute;
+    max-width: 100%;
+    padding: 0 8px;
+    height: auto;
+    top: 0;
+    left: 0;
+    box-sizing: border-box;
+  }
+}
