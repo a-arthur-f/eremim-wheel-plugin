@@ -61,7 +61,7 @@ function erw_is_wheel_active(
   $img_needle, 
   $img_wheel
 ) {
-  if(is_admin()) {
+  if(is_admin() || is_login()) {
     return false;
   }
 
