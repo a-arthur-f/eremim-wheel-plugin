@@ -2,8 +2,8 @@
 function erw_init_settings_page() {
   register_setting('erw_options', 'erw_active');
   register_setting('erw_options', 'erw_id');
-  register_setting('erw_options', 'erw_end_date');
-  register_setting('erw_options', 'erw_start_date');
+  register_setting('erw_options', 'erw_end_date', array("sanitize_callback" => "sanitize_date"));
+  register_setting('erw_options', 'erw_start_date', array("sanitize_callback" => "sanitize_date"));
   register_setting('erw_options', 'erw_img_needle');
   register_setting('erw_options', 'erw_img_wheel');
   register_setting('erw_options', 'erw_prize_1');
@@ -127,15 +127,39 @@ function erw_field_id_input() {
 
 function erw_field_start_date() {
   $date = get_option('erw_start_date');
+  
+  $datetime = "";
+
+  if(isset($date) && !empty($date)) {
+    $utc_timezone = new DateTimeZone("UTC");
+    $utc_datetime = new DateTimeImmutable($date, $utc_timezone);
+
+    $timezone = wp_timezone();
+    $datetime = $utc_datetime->setTimezone($timezone);
+    $datetime = $datetime->format("Y-m-d H:i");
+  }
+
   ?>
-    <input type="date" name="erw_start_date" value="<?php echo isset($date) ? $date : ''?>"/> 
+    <input type="datetime-local" name="erw_start_date" value="<?php echo $datetime ?>"/> 
   <?php 
 }
 
 function erw_field_end_date() {
   $date = get_option('erw_end_date');
+
+  $datetime = "";
+
+  if(isset($date) && !empty($date)) {
+    $utc_timezone = new DateTimeZone("UTC");
+    $utc_datetime = new DateTimeImmutable($date, $utc_timezone);
+
+    $timezone = wp_timezone();
+    $datetime = $utc_datetime->setTimezone($timezone);
+    $datetime = $datetime->format("Y-m-d H:i");
+  }
+
   ?>
-    <input type="date" name="erw_end_date" value="<?php echo isset($date) ? $date : ''?>"/> 
+    <input type="datetime-local" name="erw_end_date" value="<?php echo $datetime ?>"/> 
   <?php 
 }
 
@@ -187,4 +211,18 @@ function erw_field_prize($args) {
       >
     </label>
   <?php
+}
+
+function sanitize_date($date = null) {
+  if(!isset($date) || empty($date)) {
+    return "";
+  }
+
+  $timezone = wp_timezone();
+  $datetime = new DateTimeImmutable($date, $timezone);
+
+  $utc_timezone = new DateTimeZone("UTC");
+  $utc_datetime = $datetime->setTimezone($utc_timezone);
+
+  return $utc_datetime->format("Y-m-d H:i");
 }
