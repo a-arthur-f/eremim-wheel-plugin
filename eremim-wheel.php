@@ -38,6 +38,34 @@ function erw_render_wheel() {
   $erw_end_date = get_option('erw_end_date');
   $erw_img_wheel = get_option('erw_img_wheel');
   $erw_img_needle = get_option('erw_img_needle');
+  
+  $erw_prize_1 = get_option('erw_prize_1');
+  $erw_prize_type_1 = get_option('erw_prize_type_1');
+  $erw_prize_2 = get_option('erw_prize_2');
+  $erw_prize_type_2 = get_option('erw_prize_type_2');
+  $erw_prize_3 = get_option('erw_prize_3');
+  $erw_prize_type_3 = get_option('erw_prize_type_3');
+  $erw_prize_4 = get_option('erw_prize_4');
+  $erw_prize_type_4 = get_option('erw_prize_type_4');
+
+  $prizes = [
+    [
+      "type" => $erw_prize_type_1,
+      "value" => $erw_prize_1
+    ],
+    [
+      "type" => $erw_prize_type_2,
+      "value" => $erw_prize_2
+    ],
+    [
+      "type" => $erw_prize_type_3,
+      "value" => $erw_prize_3
+    ],
+    [
+      "type" => $erw_prize_type_4,
+      "value" => $erw_prize_4
+    ],
+  ];
 
   if(erw_is_wheel_active(
     $erw_id, 
@@ -45,11 +73,12 @@ function erw_render_wheel() {
     $erw_start_date, 
     $erw_end_date, 
     $erw_img_needle, 
-    $erw_img_wheel
+    $erw_img_wheel,
+    $prizes
   )) {
     echo "<script>console.log('roleta ativa')</script>";
     require_once(plugin_dir_path(__FILE__) . '/templates/wheel.php');
-    erw_render_wheel_template($erw_id, $erw_img_needle, $erw_img_wheel);
+    erw_render_wheel_template($erw_id, $erw_img_needle, $erw_img_wheel, $prizes);
   }
 }
 
@@ -59,7 +88,8 @@ function erw_is_wheel_active(
   $start_date, 
   $end_date, 
   $img_needle, 
-  $img_wheel
+  $img_wheel,
+  $prizes
 ) {
   if(is_admin() || is_login()) {
     return false;
@@ -97,6 +127,12 @@ function erw_is_wheel_active(
 
   if(empty($img_needle)) {
     return false;
+  }
+
+  for($i = 0; $i < count($prizes); $i++) {
+    if(empty($prizes[$i]['type']) || empty($prizes[$i]['value'])) {
+      return false;
+    }
   }
 
   return true;
