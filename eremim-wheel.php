@@ -13,6 +13,8 @@ function erw_loaded() {
   require_once(plugin_dir_path(__FILE__) . '/eremim-wheel-settings.php');
   add_action('admin_menu', 'erw_add_settings_menu');
   add_action('admin_init', 'erw_init_settings_page');
+  add_action('wp_ajax_erw_prize', 'erw_ajax_handler');
+  add_action('wp_ajax_nopriv_erw_prize', 'erw_ajax_handler');
   
   erw_render_wheel();
 }
@@ -136,4 +138,26 @@ function erw_is_wheel_active(
   }
 
   return true;
+}
+
+function erw_ajax_handler() {
+  $data = json_decode(file_get_contents('php://input'));
+  $prize_type = $data->prize->type;
+  $prize_value = $data->prize->value;
+
+  if(!$prize_type || !$prize_value) {
+    wp_die('', '', array('response' => 400));
+  }
+
+  $added = false;
+
+  if($prize_type == "produto") {
+    $added = WC()->cart->add_to_cart((int) $prize_value);
+  }
+  
+  if($prize_type == "desconto") {
+    $added = WC()->cart->add_discount($prize_value);
+  }
+
+  wp_send_json(array('added' => $added), 200);
 }
