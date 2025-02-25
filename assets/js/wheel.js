@@ -2,11 +2,17 @@ const wheelContainer = document.querySelector('.erw-wheel');
 const wheel = document.querySelector('.erw-wheel__wheel');
 const closeButton = document.querySelector('.erw-wheel__close');
 
+const id = wheelContainer.dataset.id;
+
 closeButton.addEventListener('click', () => {
-  wheelContainer.remove()
+  sessionStorage.setItem(id, 'true');
+  wheelContainer.remove();
 });
 
-const id = wheelContainer.dataset.id;
+if(!localStorage.getItem(id) && !sessionStorage.getItem(id)) {
+  wheelContainer.style.display = 'block';
+}
+
 const zoneSize = 90;
 let currentDeg = 0;
 const degs = [45, 135, 225, 315];
@@ -51,6 +57,8 @@ wheel.addEventListener('transitionend', async () => {
   }); 
 
   if(!res.ok) {
-    console.log('Falha na requisição da roleta.');
+    return console.log('Falha na requisição da roleta.');
   }
+
+  localStorage.setItem(id, 'true');
 });
