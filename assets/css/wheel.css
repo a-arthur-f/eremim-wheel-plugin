@@ -66,13 +66,13 @@
 
     display: flex;
     flex-direction: column;
-    gap: 32px;
     align-items: center;
 
     h1 {
       width: 20px;
       width: 100%;
       font-weight: bold;
+      margin-bottom: 8px;
     }
 
     button {
@@ -91,6 +91,12 @@
     .erw-wheel__wheel {
       left: 50%;
       transform: translateX(-50%);
+    }
+
+    .erw-wheel__close {
+      span {
+        right: 124px;
+      }
     }
 
     .erw-wheel__wheel-img {
