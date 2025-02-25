@@ -6,8 +6,7 @@ createIdButton && createIdButton.addEventListener('click', () => {
   const now = Date.now();
   const idString = `erw-${now}`;
 
-  const encoder = new TextEncoder();
-  const id = encoder.encode(idString).toBase64();
+  const id = btoa(idString);
 
   idInput.value = id;
 });
