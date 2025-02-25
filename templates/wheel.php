@@ -17,6 +17,7 @@ $prize_4 = $prizes[3]['type'] . '-' . $prizes[3]['value'];
       data-prize-2="<?php echo $prize_2 ?>"
       data-prize-3="<?php echo $prize_3 ?>"
       data-prize-4="<?php echo $prize_4 ?>"
+      style="display: none;"
   >
     <div id="erw-wheel-start-message" class="erw-wheel__message">
       <h1>Roleta premiada</h1>
