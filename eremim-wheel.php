@@ -153,6 +153,18 @@ function erw_ajax_handler() {
 
   if($prize_type == "produto") {
     $added = WC()->cart->add_to_cart((int) $prize_value);
+
+    if($added) {
+      $price = WC()->cart->get_cart()[$added]['data']->price;
+
+      $coupon = new WC_Coupon();
+      $coupon->set_code(time());
+      $coupon->set_usage_limit(1);
+      $coupon->set_amount($price);
+      $coupon->save();
+
+      $added = WC()->cart->add_discount($coupon->get_code());
+    }
   }
   
   if($prize_type == "desconto") {

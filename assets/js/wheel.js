@@ -25,7 +25,7 @@ startButton.addEventListener('click', () => {
 
 endButton.addEventListener('click', () => {
   localStorage.setItem(id, 'true');
-  wheelContainer.remove();
+  location.reload();
 });
 
 const zoneSize = 90;
