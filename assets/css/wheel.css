@@ -47,6 +47,7 @@
     max-width: 100%;
     height: auto;
     transition: transform 8s ease-out;
+    cursor: pointer;
   }
 
 
@@ -63,6 +64,11 @@
     text-align: center;
     animation: messageFromTop 1.2s;
 
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    align-items: center;
+
     h1 {
       width: 20px;
       width: 100%;
@@ -77,6 +83,22 @@
       padding: 8px 24px;
       font-size: 18px;
       font-weight: bold;
+      cursor: pointer;
+    }
+  }
+
+  @media (min-width: 1200px) {
+    .erw-wheel__wheel {
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .erw-wheel__wheel-img {
+      max-width: 860px;
+    }
+
+    .erw-wheel__message {
+      max-width: 520px;
     }
   }
 }
