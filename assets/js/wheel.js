@@ -77,7 +77,8 @@ wheelImg.addEventListener('transitionend', async () => {
 
   localStorage.setItem(id, 'true');
 
-  wheel.remove();
-  
-  endMessage.style.display = 'block';
+  setTimeout(() => {
+    wheel.remove();
+    endMessage.style.display = 'flex';
+  }, 3000)
 });
