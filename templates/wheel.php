@@ -18,12 +18,23 @@ $prize_4 = $prizes[3]['type'] . '-' . $prizes[3]['value'];
       data-prize-3="<?php echo $prize_3 ?>"
       data-prize-4="<?php echo $prize_4 ?>"
   >
+    <div id="erw-wheel-start-message" class="erw-wheel__message">
+      <h1>Roleta premiada</h1>
+      <p>Gire para ganhar um de nossos prêmios</p>
+      <button id="erw-wheel-start-button">OK</button>
+    </div>
     <div class="erw-wheel__close">
       <span class="dashicons dashicons-no"></span>
     </div>
-    <img class="erw-wheel__needle" src="<?php echo $erw_img_needle ?>" alt="Imagem da agulha"/>
-    <img class="erw-wheel__wheel" src="<?php echo $erw_img_wheel ?>" alt="Imagem da roleta"/>
+    <div class="erw-wheel__wheel">
+      <img class="erw-wheel__needle" src="<?php echo $erw_img_needle ?>" alt="Imagem da agulha"/>
+      <img class="erw-wheel__wheel-img" src="<?php echo $erw_img_wheel ?>" alt="Imagem da roleta"/>
+    </div>
+    <div id="erw-wheel-end-message" class="erw-wheel__message">
+      <h1>Parabéns</h1>
+      <p>Seu prêmio será adicionado automaticamento no carrinho.</p>
+      <button id="erw-wheel-end-button">OK</button>
+    </div>
   </div>
 <?php
 }
-?>

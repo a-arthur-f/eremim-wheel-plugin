@@ -1,17 +1,32 @@
 const wheelContainer = document.querySelector('.erw-wheel');
 const wheel = document.querySelector('.erw-wheel__wheel');
+const wheelImg = document.querySelector('.erw-wheel__wheel-img');
 const closeButton = document.querySelector('.erw-wheel__close');
+const startMessage = document.querySelector('#erw-wheel-start-message');
+const startButton = document.querySelector('#erw-wheel-start-button');
+const endMessage = document.querySelector('#erw-wheel-end-message');
+const endButton = document.querySelector('#erw-wheel-end-button');
 
 const id = wheelContainer.dataset.id;
+
+if(!localStorage.getItem(id) && !sessionStorage.getItem(id)) {
+  wheelContainer.style.display = 'block';
+}
 
 closeButton.addEventListener('click', () => {
   sessionStorage.setItem(id, 'true');
   wheelContainer.remove();
 });
 
-if(!localStorage.getItem(id) && !sessionStorage.getItem(id)) {
-  wheelContainer.style.display = 'block';
-}
+startButton.addEventListener('click', () => {
+  startMessage.style.display = 'none';
+  wheel.style.display = 'block';
+});
+
+endButton.addEventListener('click', () => {
+  localStorage.setItem(id, 'true');
+  wheelContainer.remove();
+});
 
 const zoneSize = 90;
 let currentDeg = 0;
@@ -36,14 +51,14 @@ const prizes = [
   }
 ]
 
-wheel.addEventListener('click', () => {
+wheelImg.addEventListener('click', () => {
   currentDeg = degs[Math.floor(Math.random() * 4)];
-  wheel.style.transform = `rotate(${9000 + currentDeg}deg)`;
-  wheel.style.animation = 'blur 8s';
-  wheel.style.pointerEvents = 'none';
+  wheelImg.style.transform = `rotate(${9000 + currentDeg}deg)`;
+  wheelImg.style.animation = 'blur 8s';
+  wheelImg.style.pointerEvents = 'none';
 });
 
-wheel.addEventListener('transitionend', async () => {
+wheelImg.addEventListener('transitionend', async () => {
   const prizeId = Math.ceil(currentDeg / 90) - 1;
   wheel.style.animation = 'none';
   const res = await fetch(ajax_obj.ajax_url + '?action=erw_prize', {
@@ -61,4 +76,8 @@ wheel.addEventListener('transitionend', async () => {
   }
 
   localStorage.setItem(id, 'true');
+
+  wheel.remove();
+  
+  endMessage.style.display = 'block';
 });
