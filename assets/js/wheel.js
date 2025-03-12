@@ -8,6 +8,7 @@ const endMessage = document.querySelector('#erw-wheel-end-message');
 const endButton = document.querySelector('#erw-wheel-end-button');
 
 const id = wheelContainer.dataset.id;
+const minAmount = parseFloat(wheelContainer.dataset.minAmount);
 
 if(!localStorage.getItem(id) && !sessionStorage.getItem(id)) {
   wheelContainer.style.display = 'block';
@@ -67,7 +68,8 @@ wheelImg.addEventListener('transitionend', async () => {
       prize: {
         type: prizes[prizeId].type,
         value: prizes[prizeId].value
-      }
+      },
+      minAmount
     })
   }); 
 

@@ -2,6 +2,7 @@
 function erw_init_settings_page() {
   register_setting('erw_options', 'erw_active');
   register_setting('erw_options', 'erw_id');
+  register_setting('erw_options', 'erw_min_amount');
   register_setting('erw_options', 'erw_end_date', array("sanitize_callback" => "sanitize_date"));
   register_setting('erw_options', 'erw_start_date', array("sanitize_callback" => "sanitize_date"));
   register_setting('erw_options', 'erw_img_needle');
@@ -33,6 +34,13 @@ function erw_init_settings_page() {
     'erw_field_id',
     'ID da roleta',
     'erw_field_id_input',
+    'roleta_eremim_settings',
+    'erw_settings_section'
+  );
+  add_settings_field(
+    'erw_field_min_amount',
+    'Valor mínimo',
+    'erw_field_min_amount_input',
     'roleta_eremim_settings',
     'erw_settings_section'
   );
@@ -122,6 +130,14 @@ function erw_field_id_input() {
   ?>
     <input type="text" size="26" name="erw_id" readonly required value="<?php echo isset($id) ? $id : ''?>"/> 
     <button id="gen-id" style="cursor: pointer;" type="button">Gerar novo id</button>
+  <?php
+}
+
+function erw_field_min_amount_input() {
+  $min_amount = get_option('erw_min_amount');
+  $min_amount = isset($min_amount) && !empty($min_amount) ? $min_amount : '0';
+  ?>
+    <input type="text" size="26" name="erw_min_amount" value="<?php echo $min_amount?>"/> 
   <?php
 }
 
