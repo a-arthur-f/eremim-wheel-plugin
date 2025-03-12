@@ -3,7 +3,7 @@ wp_enqueue_style("erw_wheel_style", plugins_url("/assets/css/wheel.css", __DIR__
 wp_enqueue_script("erw_wheel_script", plugins_url("/assets/js/wheel.js", __DIR__));
 wp_localize_script("erw_wheel_script", "ajax_obj", array('ajax_url' => admin_url('admin-ajax.php')));
 
-function erw_render_wheel_template($erw_id, $erw_img_needle, $erw_img_wheel, $prizes) {
+function erw_render_wheel_template($erw_id, $erw_min_amount, $erw_img_needle, $erw_img_wheel, $prizes) {
 $prize_1 = $prizes[0]['type'] . '-' . $prizes[0]['value'];
 $prize_2 = $prizes[1]['type'] . '-' . $prizes[1]['value'];
 $prize_3 = $prizes[2]['type'] . '-' . $prizes[2]['value'];
@@ -17,6 +17,7 @@ $prize_4 = $prizes[3]['type'] . '-' . $prizes[3]['value'];
       data-prize-2="<?php echo $prize_2 ?>"
       data-prize-3="<?php echo $prize_3 ?>"
       data-prize-4="<?php echo $prize_4 ?>"
+      data-min-amount="<?php echo $erw_min_amount ?>"
       style="display: none;"
   >
     <div id="erw-wheel-start-message" class="erw-wheel__message">
