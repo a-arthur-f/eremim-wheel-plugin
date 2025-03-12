@@ -218,8 +218,13 @@ function erw_add_to_cart($item_key) {
   
   $current_item_price = WC()->cart->get_cart_item($item_key)['data']->price;
   $cart_total = (float) WC()->cart->cart_contents_total + $current_item_price;
+
+  if($cart_total < $min_amount && !empty($applied_coupon)) {
+    WC()->cart->remove_coupon($applied_coupon);
+    return;
+  }
   
-  if($cart_total >= $min_amount && empty($applied_coupon)) {
+  if(empty($applied_coupon)) {
     $type == "produto" && erw_add_product($value) || 
     $type == "desconto" && erw_add_discount($value);
   }
@@ -244,8 +249,15 @@ function erw_quantity_update($item_key, $quantity, $old_quantity) {
   
   $multiplier = $quantity < $old_quantity ? -1 : 1;
   $current_item_price = WC()->cart->get_cart_item($item_key)['data']->price;
-  $cart_total = (float) WC()->cart->cart_contents_total + $current_item_price * $multiplier;
   
+  $cart_total = 0;
+  
+  if($type == "produto") {
+    $cart_total = WC()->cart->cart_contents_total + $current_item_price * $multiplier;
+  } else {
+    $cart_total = WC()->cart->get_subtotal() + $current_item_price * $multiplier;
+  }
+
   if($cart_total < $min_amount && !empty($applied_coupon)) {
     WC()->cart->remove_coupon($applied_coupon);
     return;
