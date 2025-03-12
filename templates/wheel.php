@@ -35,6 +35,9 @@ $prize_4 = $prizes[3]['type'] . '-' . $prizes[3]['value'];
     <div id="erw-wheel-end-message" class="erw-wheel__message">
       <h1>Parabéns</h1>
       <p>Seu prêmio será adicionado automaticamento no carrinho.</p>
+      <? if((float) $erw_min_amount > 0): ?>
+        <p class="min-amount">*Apenas para compras acima de R$ <? echo $erw_min_amount ?></p>
+      <? endif; ?>
       <button id="erw-wheel-end-button">OK</button>
     </div>
   </div>

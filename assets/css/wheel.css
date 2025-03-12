@@ -76,6 +76,16 @@
       margin-bottom: 8px;
     }
 
+    p {
+      margin-bottom: 8px;
+    }
+
+    .min-amount {
+      font-size: 12px;
+      font-weight: bold;
+      margin-bottom: 32px;
+    }
+
     button {
       background-color: #000;
       color: #fff;
